@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Free online QR Code generator. Generate custom QR codes with logo, colors, and unique shapes. Download as PNG, SVG, PDF, JPEG, WEBP." />
+  <meta name="keywords" content="qr code generator, qr code maker, qr code creator, free qr code, generate qr code, online qr code generator, custom qr code" />
+  <title>FARQR - Free QR Code Generator</title>
+
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" crossorigin="anonymous" />
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet" />
+
+  <!-- OG Meta -->
+  <meta property="og:title" content="FARQR - Free QR Code Generator" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Free online QR Code generator with custom designs, logos, and multiple export formats." />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <div class="brand-icon"><i class="fas fa-qrcode"></i></div>
+        <div>
+          <span class="brand-title">FARQR</span>
+          <span class="brand-slogan" data-i18n="brand_slogan">Free QR Code Generator</span>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link" href="#faq-section" data-i18n="nav_faq">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about-section" data-i18n="nav_about">About</a></li>
+        </ul>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown me-2">
+          <button class="btn btn-outline-light dropdown-toggle btn-sm d-flex align-items-center gap-1" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: var(--radius-pill); padding: 0.4rem 0.9rem;">
+            <i class="fas fa-globe me-1"></i> <span id="current-lang-name" data-i18n="lang_name">English</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="langDropdown">
+            <li><a class="dropdown-item lang-option active" href="#" data-lang="en">🇬🇧 English (EN)</a></li>
+            <li><a class="dropdown-item lang-option" href="#" data-lang="id">🇮🇩 Bahasa Indonesia (ID)</a></li>
+          </ul>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center me-2" id="theme-toggle" type="button" style="border-radius: 50%; width: 36px; height: 36px; padding: 0;" title="Toggle Dark/Light Mode">
+          <i class="fas fa-sun" id="theme-toggle-icon"></i>
+        </button>
+
+        <div class="d-flex gap-2">
+          <a class="nav-link btn-nav-login" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="openLoginModalNav" data-i18n="nav_login">Log in</a>
+          <a class="nav-link btn-nav-signup" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="openRegisterModalNav" data-i18n="nav_signup">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content" role="main">
+    <div class="container">
+      <div class="row">
+
+        <!-- ========== LEFT COLUMN: Input & Design ========== -->
+        <div class="col-lg-8">
+
+          <!-- QR Type Tab Pills -->
+          <ul class="qr-tabs" id="qrTypeTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-url" type="button" role="tab" aria-selected="true">
+                <i class="fa fa-link"></i><span data-i18n="tab_url">URL</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-text" type="button" role="tab">
+                <i class="fa fa-align-left"></i><span data-i18n="tab_text">Text</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-vcard" type="button" role="tab">
+                <i class="far fa-address-card"></i><span data-i18n="tab_vcard">vCard</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-email" type="button" role="tab">
+                <i class="fa fa-envelope"></i><span data-i18n="tab_email">Email</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-whatsapp" type="button" role="tab">
+                <i class="fab fa-whatsapp"></i><span data-i18n="tab_whatsapp">WhatsApp</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-wifi" type="button" role="tab">
+                <i class="fa fa-wifi"></i><span data-i18n="tab_wifi">WiFi</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-phone" type="button" role="tab">
+                <i class="fa fa-phone"></i><span data-i18n="tab_phone">Phone</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-sms" type="button" role="tab">
+                <i class="fa fa-sms"></i><span data-i18n="tab_sms">SMS</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-calendar" type="button" role="tab">
+                <i class="fa fa-calendar"></i><span data-i18n="tab_calendar">Calendar</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-geo" type="button" role="tab">
+                <i class="fa fa-globe"></i><span data-i18n="tab_geo">Geolocation</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-crypto" type="button" role="tab">
+                <i class="fab fa-btc"></i><span data-i18n="tab_crypto">Crypto</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-social" type="button" role="tab">
+                <i class="fa fa-users"></i><span data-i18n="tab_social">Social Media</span>
+              </button>
+            </li>
+          </ul>
+
+          <!-- ===== ACCORDION: Text Input ===== -->
+          <div class="accordion-card animate-fadeInUp">
+            <button class="accordion-header" data-bs-toggle="collapse" data-bs-target="#collapseInput" aria-expanded="true" id="headingInput">
+              <i class="fas fa-keyboard"></i> <span data-i18n="header_data_input">Data Input</span>
+              <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div id="collapseInput" class="collapse show" data-bs-parent="#accordionParent">
+              <div class="accordion-body">
+                <div class="tab-content" id="qrTabContent">
+
+                  <!-- === URL Tab === -->
+                  <div class="tab-pane fade show active" id="tab-url" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-link"></i> <span data-i18n="title_url">URL</span></div>
+                    <div class="mb-3">
+                      <input type="url" class="form-control" id="url-data" data-i18n-placeholder="ph_url" placeholder="https://example.com" />
+                    </div>
+                  </div>
+
+                  <!-- === Text Tab === -->
+                  <div class="tab-pane fade" id="tab-text" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-align-left"></i> <span data-i18n="title_text">Text</span></div>
+                    <div class="mb-3">
+                      <textarea class="form-control" id="text-data" rows="5" data-i18n-placeholder="ph_text" placeholder="Enter your text here..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- === vCard Tab === -->
+                  <div class="tab-pane fade" id="tab-vcard" role="tabpanel">
+                    <div class="tab-section-title"><i class="far fa-address-card"></i> <span data-i18n="title_vcard">vCard Contact</span></div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_name">Name:</label></div>
+                      <div class="col-md-9">
+                        <div class="row g-2">
+                          <div class="col-6"><input type="text" class="form-control" id="vc-firstname" data-i18n-placeholder="ph_firstname" placeholder="First name" /></div>
+                          <div class="col-6"><input type="text" class="form-control" id="vc-lastname" data-i18n-placeholder="ph_lastname" placeholder="Last name" /></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_contact">Contact:</label></div>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="vc-mobile" data-i18n-placeholder="ph_mobile" placeholder="Mobile number" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label></label></div>
+                      <div class="col-md-9">
+                        <div class="row g-2">
+                          <div class="col-6"><input type="text" class="form-control" id="vc-phone" data-i18n-placeholder="ph_phone" placeholder="Phone number" /></div>
+                          <div class="col-6"><input type="text" class="form-control" id="vc-fax" data-i18n-placeholder="ph_fax" placeholder="Fax" /></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_email">Email:</label></div>
+                      <div class="col-md-9">
+                        <input type="email" class="form-control" id="vc-email" data-i18n-placeholder="ph_email" placeholder="Email" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_company">Company:</label></div>
+                      <div class="col-md-9">
+                        <div class="row g-2">
+                          <div class="col-6"><input type="text" class="form-control" id="vc-company" data-i18n-placeholder="ph_company" placeholder="Company" /></div>
+                          <div class="col-6"><input type="text" class="form-control" id="vc-title" data-i18n-placeholder="ph_title" placeholder="Job title" /></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_street">Street:</label></div>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="vc-street" data-i18n-placeholder="ph_street" placeholder="Street" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_city">City:</label></div>
+                      <div class="col-md-9">
+                        <div class="row g-2">
+                          <div class="col-6"><input type="text" class="form-control" id="vc-city" data-i18n-placeholder="ph_city" placeholder="City" /></div>
+                          <div class="col-6"><input type="text" class="form-control" id="vc-zipcode" data-i18n-placeholder="ph_zipcode" placeholder="Zip code" /></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_state">State:</label></div>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="vc-state" data-i18n-placeholder="ph_state" placeholder="State" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_country">Country:</label></div>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="vc-country" data-i18n-placeholder="ph_country" placeholder="Country" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_website">Website:</label></div>
+                      <div class="col-md-9">
+                        <input type="url" class="form-control" id="vc-website" data-i18n-placeholder="ph_website" placeholder="https://example.com" />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-3"><label data-i18n="lbl_note">Note:</label></div>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="vc-note" data-i18n-placeholder="ph_note" placeholder="Note" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- === Email Tab === -->
+                  <div class="tab-pane fade" id="tab-email" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-envelope"></i> <span data-i18n="title_email">Email</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_email_addr">Email address</label>
+                      <input type="email" class="form-control" id="email-address" data-i18n-placeholder="ph_email_addr" placeholder="name@example.com" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_subject">Subject</label>
+                      <input type="text" class="form-control" id="email-subject" data-i18n-placeholder="ph_subject" placeholder="Email subject" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_email_body">Body</label>
+                      <textarea class="form-control" id="email-body" rows="4" data-i18n-placeholder="ph_email_body" placeholder="Email body text..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- === WhatsApp Tab === -->
+                  <div class="tab-pane fade" id="tab-whatsapp" role="tabpanel">
+                    <div class="tab-section-title"><i class="fab fa-whatsapp"></i> <span data-i18n="title_whatsapp">WhatsApp</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_wa_phone">Phone number</label>
+                      <input type="text" class="form-control" id="wa-phone" data-i18n-placeholder="ph_wa_phone" placeholder="+62 812 3456 7890" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_wa_msg">Message</label>
+                      <textarea class="form-control" id="wa-message" rows="4" data-i18n-placeholder="ph_wa_msg" placeholder="Your message..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- === WiFi Tab === -->
+                  <div class="tab-pane fade" id="tab-wifi" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-wifi"></i> <span data-i18n="title_wifi">WiFi Network</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_wifi_ssid">Network Name (SSID)</label>
+                      <input type="text" class="form-control" id="wifi-ssid" data-i18n-placeholder="ph_wifi_ssid" placeholder="WiFi network name" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_wifi_pass">Password</label>
+                      <input type="text" class="form-control" id="wifi-password" data-i18n-placeholder="ph_wifi_pass" placeholder="WiFi password" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_wifi_enc">Encryption</label>
+                      <select class="form-select" id="wifi-encryption">
+                        <option value="WPA">WPA/WPA2</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">None</option>
+                      </select>
+                    </div>
+                    <div class="form-check mb-3">
+                      <input class="form-check-input" type="checkbox" id="wifi-hidden" />
+                      <label class="form-check-label" for="wifi-hidden" data-i18n="lbl_wifi_hidden">Hidden network</label>
+                    </div>
+                  </div>
+
+                  <!-- === Phone Tab === -->
+                  <div class="tab-pane fade" id="tab-phone" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-phone"></i> <span data-i18n="title_phone">Phone Number</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_phone">Phone number</label>
+                      <input type="text" class="form-control" id="phone-number" data-i18n-placeholder="ph_phone_num" placeholder="+62 812 3456 7890" />
+                    </div>
+                  </div>
+
+                  <!-- === SMS Tab === -->
+                  <div class="tab-pane fade" id="tab-sms" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-sms"></i> <span data-i18n="title_sms">SMS Message</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_sms_phone">Phone number</label>
+                      <input type="text" class="form-control" id="sms-phone" data-i18n-placeholder="ph_sms_phone" placeholder="+62 812 3456 7890" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_sms_msg">Message</label>
+                      <textarea class="form-control" id="sms-message" rows="4" data-i18n-placeholder="ph_sms_msg" placeholder="Your SMS message..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- === Calendar Tab === -->
+                  <div class="tab-pane fade" id="tab-calendar" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-calendar"></i> <span data-i18n="title_calendar">Calendar Event</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_cal_title">Title</label>
+                      <input type="text" class="form-control" id="cal-title" data-i18n-placeholder="ph_cal_title" placeholder="My event" />
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_cal_loc">Location</label>
+                      <input type="text" class="form-control" id="cal-location" data-i18n-placeholder="ph_cal_loc" placeholder="Event location" />
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label data-i18n="lbl_cal_start">Start time</label>
+                        <input type="datetime-local" class="form-control" id="cal-start" />
+                      </div>
+                      <div class="col-md-6">
+                        <label data-i18n="lbl_cal_end">End time</label>
+                        <input type="datetime-local" class="form-control" id="cal-end" />
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_cal_desc">Description</label>
+                      <textarea class="form-control" id="cal-description" rows="3" data-i18n-placeholder="ph_cal_desc" placeholder="Event description..."></textarea>
+                    </div>
+                  </div>
+
+                  <!-- === Geolocation Tab === -->
+                  <div class="tab-pane fade" id="tab-geo" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-globe"></i> <span data-i18n="title_geo">Geolocation</span></div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label data-i18n="lbl_geo_lat">Latitude</label>
+                        <input type="text" class="form-control" id="geo-lat" data-i18n-placeholder="ph_geo_lat" placeholder="e.g. -6.2088" />
+                      </div>
+                      <div class="col-md-6">
+                        <label data-i18n="lbl_geo_lng">Longitude</label>
+                        <input type="text" class="form-control" id="geo-lng" data-i18n-placeholder="ph_geo_lng" placeholder="e.g. 106.8456" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- === Cryptocurrency Tab === -->
+                  <div class="tab-pane fade" id="tab-crypto" role="tabpanel">
+                    <div class="tab-section-title"><i class="fab fa-btc"></i> <span data-i18n="title_crypto">Cryptocurrency</span></div>
+                    <div class="mb-3">
+                      <div class="d-flex flex-wrap gap-3">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="crypto-type" id="crypto-btc" value="bitcoin" checked />
+                          <label class="form-check-label" for="crypto-btc">Bitcoin (BTC)</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="crypto-type" id="crypto-bch" value="bitcoincash" />
+                          <label class="form-check-label" for="crypto-bch">Bitcoin Cash (BCH)</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="crypto-type" id="crypto-eth" value="ethereum" />
+                          <label class="form-check-label" for="crypto-eth">Ethereum (ETH)</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="crypto-type" id="crypto-ltc" value="litecoin" />
+                          <label class="form-check-label" for="crypto-ltc">Litecoin (LTC)</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-8">
+                        <label data-i18n="lbl_crypto_addr">Wallet Address</label>
+                        <input type="text" class="form-control" id="crypto-address" data-i18n-placeholder="ph_crypto_addr" placeholder="Wallet address" />
+                      </div>
+                      <div class="col-md-4">
+                        <label data-i18n="lbl_crypto_amount">Amount</label>
+                        <input type="number" class="form-control" id="crypto-amount" data-i18n-placeholder="ph_crypto_amount" placeholder="0.00" step="any" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- === Social Media Tab === -->
+                  <div class="tab-pane fade" id="tab-social" role="tabpanel">
+                    <div class="tab-section-title"><i class="fa fa-users"></i> <span data-i18n="title_social">Social Media</span></div>
+                    <div class="mb-3">
+                      <label data-i18n="lbl_social_url">Profile URL</label>
+                      <input type="url" class="form-control" id="social-url" data-i18n-placeholder="ph_social_url" placeholder="https://instagram.com/your_profile" />
+                    </div>
+                  </div>
+
+                </div><!-- /tab-content -->
+
+                <!-- Generate Button -->
+                <div class="mt-3">
+                  <button type="button" class="btn-generate" id="btn-generate">
+                    <i class="fas fa-qrcode"></i> <span data-i18n="btn_generate">Generate QR Code</span>
+                  </button>
+                </div>
+
+              </div><!-- /accordion-body -->
+            </div><!-- /collapse -->
+          </div><!-- /accordion-card -->
+
+          <!-- ===== ACCORDION: Design ===== -->
+          <div class="accordion-card animate-fadeInUp" style="animation-delay: 0.1s;">
+            <button class="accordion-header collapsed" data-bs-toggle="collapse" data-bs-target="#collapseDesign" aria-expanded="false" id="headingDesign">
+              <i class="fas fa-palette"></i> <span data-i18n="header_design">Design Customization</span>
+              <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div id="collapseDesign" class="collapse">
+              <div class="accordion-body">
+
+                <!-- Dot Shapes -->
+                <div class="design-subtitle" data-i18n="subtitle_dot_shape">Dot Shape</div>
+                <div class="shapes-grid" id="dot-shapes">
+                  <!-- Populated by JS -->
+                </div>
+
+                <hr class="section-divider" />
+
+                <!-- Finder Pattern Shapes -->
+                <div class="design-subtitle" data-i18n="subtitle_corner_pattern">Corner / Finder Pattern</div>
+                <div class="finder-shapes-grid" id="finder-shapes">
+                  <!-- Populated by JS -->
+                </div>
+
+                <hr class="section-divider" />
+
+                <!-- Colors -->
+                <div class="design-subtitle" data-i18n="subtitle_colors">Colors</div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label data-i18n="lbl_fg_color">Foreground Color</label>
+                    <div class="color-picker-group">
+                      <div class="color-preview" style="background:#000000;" id="fg-preview">
+                        <input type="color" id="fg-color" value="#000000" />
+                      </div>
+                      <input type="text" class="form-control color-hex-input" id="fg-hex" value="#000000" maxlength="7" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label data-i18n="lbl_bg_color">Background Color</label>
+                    <div class="color-picker-group">
+                      <div class="color-preview" style="background:#ffffff;" id="bg-preview">
+                        <input type="color" id="bg-color" value="#ffffff" />
+                      </div>
+                      <input type="text" class="form-control color-hex-input" id="bg-hex" value="#ffffff" maxlength="7" />
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="section-divider" />
+
+                <!-- Logo Upload -->
+                <div class="design-subtitle" data-i18n="subtitle_logo">Logo / Image</div>
+                <div class="logo-upload-area" id="logo-upload-area">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p data-i18n="upload_logo_text">Click or drag image here to add a logo</p>
+                  <input type="file" id="logo-file" accept="image/*" style="display:none;" />
+                </div>
+                <div class="logo-wrapper mt-2 d-none" id="logo-preview-wrapper">
+                  <img id="logo-preview-img" src="" alt="Logo preview" />
+                  <button class="logo-remove-btn" id="logo-remove-btn" title="Remove logo"><i class="fas fa-times"></i></button>
+                </div>
+
+                <hr class="section-divider" />
+
+                <!-- Error Correction & Margin -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="design-subtitle" data-i18n="subtitle_ec">Error Correction</div>
+                    <div class="ec-selector">
+                      <button class="ec-btn" data-level="L" title="Low (7%)">L</button>
+                      <button class="ec-btn active" data-level="M" title="Medium (15%)">M</button>
+                      <button class="ec-btn" data-level="Q" title="Quartile (25%)">Q</button>
+                      <button class="ec-btn" data-level="H" title="High (30%)">H</button>
+                    </div>
+                    <span class="hint-text mt-1" data-i18n="ec_hint">Higher = more resistant to damage, but denser QR code</span>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="design-subtitle" data-i18n="subtitle_margin">Margin Size</div>
+                    <div class="d-flex align-items-center gap-2">
+                      <input type="range" id="margin-size" min="0" max="10" value="4" />
+                      <span class="range-value" id="margin-value">4</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- /accordion-body -->
+            </div><!-- /collapse -->
+          </div><!-- /accordion-card -->
+
+          <!-- ===== ACCORDION: Download ===== -->
+          <div class="accordion-card animate-fadeInUp" style="animation-delay: 0.2s;">
+            <button class="accordion-header collapsed" data-bs-toggle="collapse" data-bs-target="#collapseDownload" aria-expanded="false" id="headingDownload">
+              <i class="fas fa-download"></i> <span data-i18n="header_download">Download</span>
+              <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div id="collapseDownload" class="collapse">
+              <div class="accordion-body">
+                <div class="design-subtitle mb-3" data-i18n="download_section_subtitle">Choose format and download your QR code</div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label data-i18n="lbl_image_size_px">Image Size (px)</label>
+                    <input type="number" class="form-control" id="download-size" value="1000" min="100" max="4000" step="100" />
+                  </div>
+                </div>
+                <div class="download-grid">
+                  <button class="btn-download btn-download-primary" id="dl-png">
+                    <i class="fas fa-image"></i> Download PNG
+                  </button>
+                  <button class="btn-download" id="dl-svg">
+                    <i class="fas fa-vector-square"></i> SVG
+                  </button>
+                  <button class="btn-download" id="dl-jpeg">
+                    <i class="fas fa-file-image"></i> JPEG
+                  </button>
+                  <button class="btn-download" id="dl-webp">
+                    <i class="fas fa-file-image"></i> WEBP
+                  </button>
+                  <button class="btn-download" id="dl-pdf">
+                    <i class="fas fa-file-pdf"></i> PDF
+                  </button>
+                </div>
+              </div><!-- /accordion-body -->
+            </div><!-- /collapse -->
+          </div><!-- /accordion-card -->
+
+        </div><!-- /col-lg-8 -->
+
+        <!-- ========== RIGHT COLUMN: QR Preview ========== -->
+        <div class="col-lg-4">
+          <div class="qr-preview-card">
+
+            <!-- QR Code Preview Area -->
+            <div class="qr-preview-wrapper" id="qr-preview-wrapper">
+              <div id="qr-output">
+                <div class="qr-preview-placeholder">
+                  <i class="fas fa-qrcode"></i>
+                  <p><span data-i18n="placeholder_p1">Enter data and click</span><br /><span data-i18n="placeholder_p2">"Generate QR Code"</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Image Size Display -->
+            <div class="preview-size-label" id="preview-controls" style="display:none;">
+              <p class="image-size-text"><span data-i18n="image_size_label">Image size:</span> <strong id="size-display">1000 x 1000</strong></p>
+
+              <!-- Size Slider -->
+              <div class="preview-size-slider">
+                <input type="range" id="preview-size-range" min="100" max="4000" value="1000" step="50" />
+              </div>
+
+              <!-- Download As Section -->
+              <hr class="section-divider" />
+              <p class="download-as-label" data-i18n="download_as_label">Download as:</p>
+              <div class="preview-download-grid">
+                <button class="prev-dl-btn" id="pdl-jpeg">JPEG</button>
+                <button class="prev-dl-btn" id="pdl-png">PNG</button>
+                <button class="prev-dl-btn" id="pdl-svg">SVG</button>
+                <button class="prev-dl-btn" id="pdl-eps">EPS</button>
+                <button class="prev-dl-btn" id="pdl-webp">WEBP</button>
+                <button class="prev-dl-btn" id="pdl-tiff">TIFF</button>
+                <button class="prev-dl-btn" id="pdl-gif">GIF</button>
+                <button class="prev-dl-btn" id="pdl-stl">STL</button>
+                <button class="prev-dl-btn" id="pdl-3mf">3MF</button>
+                <button class="prev-dl-btn" id="pdl-obj">OBJ</button>
+              </div>
+
+              <p class="jpeg-note" data-i18n="jpeg_note">*jpeg does not support transparent colors</p>
+
+              <!-- Embed QR Code -->
+              <hr class="section-divider" />
+              <p class="embed-label" data-i18n="embed_label">Embed QR Code:</p>
+              <button class="btn-embed" id="btn-embed" data-bs-toggle="modal" data-bs-target="#embedModal">
+                <i class="fas fa-code"></i> <span data-i18n="btn_embed">Embed QR Code</span>
+              </button>
+            </div>
+
+          </div>
+        </div><!-- /col-lg-4 -->
+
+      </div><!-- /row -->
+    </div><!-- /container -->
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <div class="info-section" id="about-section">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h4 data-i18n="about_title">About</h4>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <h2 data-i18n="about_heading">What is a QR code?</h2>
+            <p data-i18n-html="about_p">QR code, which stands for <strong>Quick Response code</strong>, is a two-dimensional barcode which can be easily read by a machine, such as a mobile phone. A typical QR code exists of a pattern made out of black and white squares. The pattern can be decoded to extract the data it contains. The QR code is invented by Denso Wave to mark individual components inside their logistics, and create a more efficient process.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FAQ SECTION ===================== -->
+    <div class="info-section" id="faq-section">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h4 data-i18n="faq_title">Frequently Asked Questions</h4>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="faq-card">
+              <h5 data-i18n="faq_q1">Are the QR codes free to use?</h5>
+              <p data-i18n="faq_a1">Yes, all the QR codes generated on this website are free to use for any purpose, including commercial use.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="faq-card">
+              <h5 data-i18n="faq_q2">How long are the QR codes valid for?</h5>
+              <p data-i18n="faq_a2">The QR codes are valid forever. They are static and the content can't be altered afterwards, but you will be able to scan them forever.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="faq-card">
+              <h5 data-i18n="faq_q3">The QR code does not work/scan</h5>
+              <p data-i18n="faq_a3">Check that the content is correct and ensure there is enough contrast between foreground and background colors. Try increasing the QR code size or decreasing the content size.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="faq-card">
+              <h5 data-i18n="faq_q4">Which formats are supported?</h5>
+              <p data-i18n="faq_a4">We support vector files such as SVG, and image formats including PNG, JPEG, and WEBP. We also support PDF format for high-quality print output.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================== EMBED MODAL ===================== -->
+  <div class="modal fade" id="embedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" data-i18n="modal_embed_title">Embed QR Code</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-3">
+            <div id="embed-preview-qr" style="background:#fff; border-radius:8px; padding:1rem; display:inline-block;"></div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label for="embed-img-size" data-i18n="modal_embed_img_size">Image size:</label>
+              <input type="number" class="form-control" id="embed-img-size" value="500" />
+            </div>
+            <div class="col-6">
+              <label for="embed-border-size" data-i18n="modal_embed_border_size">Border size:</label>
+              <input type="number" class="form-control" id="embed-border-size" value="2" />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="embed-link" data-i18n="modal_embed_link_label">Link to Embed QR Code into Text and Emails:</label>
+            <input type="text" class="form-control" id="embed-link" readonly />
+          </div>
+          <div class="mb-3">
+            <label for="embed-html" data-i18n="modal_embed_html_label">Link to Embed QR Code into a Website:</label>
+            <input type="text" class="form-control" id="embed-html" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-3">
+          <ul class="list-unstyled list-inline">
+            <li class="list-inline-item"><a href="#" class="lang-option" data-lang="en">English</a></li>
+            <li class="list-inline-item"><a href="#" class="lang-option" data-lang="id">Bahasa Indonesia</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <p data-i18n-html="footer_text">FARQR &copy; 2025 &mdash; 'QR Code' is a registered trademark of DENSO WAVE INCORPORATED</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== LOGIN MODAL ===================== -->
+  <div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" data-i18n="nav_login">Login</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="login-form-box">
+            <div class="mb-3">
+              <input class="form-control" type="email" placeholder="Email" id="login-email" />
+            </div>
+            <div class="mb-3">
+              <input class="form-control" type="password" placeholder="Password" id="login-password" />
+            </div>
+            <button class="btn-generate w-100" type="button" id="btn-login" data-i18n="nav_login">Login</button>
+          </div>
+          <div id="register-form-box" class="d-none">
+            <div class="mb-3">
+              <input class="form-control" type="text" placeholder="Name" id="reg-name" />
+            </div>
+            <div class="mb-3">
+              <input class="form-control" type="email" placeholder="Email" id="reg-email" />
+            </div>
+            <div class="mb-3">
+              <input class="form-control" type="password" placeholder="Password" id="reg-password" />
+            </div>
+            <div class="mb-3">
+              <input class="form-control" type="password" placeholder="Repeat password" id="reg-password2" />
+            </div>
+            <button class="btn-generate w-100" type="button" id="btn-register" data-i18n="nav_signup">Create Account</button>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <span style="color:var(--text-secondary); font-size:0.85rem;">
+            <a href="#" id="toggle-auth-form" class="text-decoration-none">Create an account</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- QR Code Styling Library -->
+  <script src="https://unpkg.com/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+  <!-- jsPDF for PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <!-- i18n Dictionary -->
+  <script src="js/translations.js"></script>
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
